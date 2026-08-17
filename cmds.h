@@ -2,8 +2,6 @@
 #include <fstream>
 #include <filesystem>
 #include <cstdlib>
-#include <boost/filesystem.hpp>
-#include <boost/process.hpp>
 #include <sys/types.h>
 #include <unistd.h>
 #include <pwd.h>
@@ -19,9 +17,9 @@ namespace commands {
     }
 
     void notBuiltIn(std::string cmd) {
-        boost::filesystem path = boost::process::search_path(cmd);
+        int exists = std::system(("type" + cmd).c_str());
 
-        if (!path.empty()) {
+        if (!exists) {
             int result = std::system(cmd.c_str());
             if (result != 0) {
                 std::cout << "ERR: Failed to run command.\n";
@@ -32,7 +30,8 @@ namespace commands {
     }
 
     void addToHist(std::string cmd) {
-        std::fstream history(std::getenv("HOME").concat("/history.oganesson"), std::ios::app);
+        std::string home = std::string(std::getenv("HOME")) + "/history.oganesson";
+        std::fstream history(home, std::ios::app);
 
         if (!history.is_open()) {
             std::cout << "ERR: Couldn't open history file.\n";
@@ -56,7 +55,7 @@ namespace commands {
             return;
         }
 
-        std::fstream history(std::getenv("HOME").concat("/history.oganesson"), std::ios::ate);
+        std::fstream history(std::string(std::getenv("HOME")) +"/history.oganesson", std::ios::ate);
     }
 
     void clear() {

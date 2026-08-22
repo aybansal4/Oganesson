@@ -51,25 +51,25 @@ namespace command {
             username = pw->pw_name;
         } else {
             std::cout << "ERR: Couldn't find a username for you";
-            return;
+            return "";
         }
         
         std::string cmnd;
         
         std::fstream history(std::string(std::getenv("HOME")) +"/history.oganesson");
-        history.seekg(-1, ios_base::end);
+        history.seekg(-1, std::ios_base::end);
         
         bool loop = true;
 
         while (loop) {
-            char ch();
+            char ch;
             history.get(ch);
 
-            if ((int)history.tellg() <= 1) { history.seekg(0); keeplooping =  false; }
+            if ((int)history.tellg() <= 1) { history.seekg(0); loop =  false; }
 
-            else if ( ch = '\n' ) keeplooping = false;
+            else if ( ch == '\n' ) loop = false;
 
-            else history.seekg(2-, ios_base::cur);
+            else history.seekg(-2, std::ios_base::cur);
         }
 
         std::getline(history, cmnd);

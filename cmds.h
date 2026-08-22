@@ -7,7 +7,7 @@
 #include <pwd.h>
 #include <cstdlib>
 
-namespace commands {
+namespace command {
     void init() {
         std::filesystem::current_path(std::getenv("HOME"));
 
@@ -41,8 +41,7 @@ namespace commands {
         history << "\n" << cmd;
     }
 
-    void previous() {
-        char buffer;
+    std::string previous() {
         std::string username;
         uid_t uid = getuid();
 
@@ -54,8 +53,26 @@ namespace commands {
             std::cout << "ERR: Couldn't find a username for you";
             return;
         }
+        
+        std::string cmnd;
+        
+        std::fstream history(std::string(std::getenv("HOME")) +"/history.oganesson");
+        history.seekg(-1, ios_base::end);
+        
+        bool loop = true;
 
-        std::fstream history(std::string(std::getenv("HOME")) +"/history.oganesson", std::ios::ate);
+        while (loop) {
+            char ch();
+            history.get(ch);
+
+            if ((int)history.tellg() <= 1) { history.seekg(0); keeplooping =  false; }
+
+            else if ( ch = '\n' ) keeplooping = false;
+
+            else history.seekg(2-, ios_base::cur);
+        }
+
+        std::getline(history, cmnd);
     }
 
     void clear() {

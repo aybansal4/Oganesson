@@ -7,8 +7,10 @@ int main() {
 
     
     std::string command;
-    std::string PROMPT;
+
     while (true) {
-        std::cout << std::getline();
+        std::cout << "user: " << std::filesystem::current_path() << "\n--->";
+        std::cin >> command;
+
     }
 }

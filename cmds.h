@@ -41,38 +41,15 @@ namespace command {
         history << "\n" << cmd;
     }
 
-    std::string previous() {
-        std::string username;
-        uid_t uid = getuid();
-
-        struct passwd* pw = getpwuid(uid);
-
-        if (pw) {
-            username = pw->pw_name;
-        } else {
-            std::cout << "ERR: Couldn't find a username for you";
-            return "";
-        }
-        
+    std::string previous() {        
         std::string cmnd;
         
-        std::fstream history(std::string(std::getenv("HOME")) +"/history.oganesson");
-        history.seekg(-1, std::ios_base::end);
-        
-        bool loop = true;
+        int r = std::system("tail -n 1 ~/history.oganesson > /tmp/command.txt");
+        std::ifstream f("/tmp/command.txt");
 
-        while (loop) {
-            char ch;
-            history.get(ch);
+        std::getline(f, cmnd);
 
-            if ((int)history.tellg() <= 1) { history.seekg(0); loop =  false; }
-
-            else if ( ch == '\n' ) loop = false;
-
-            else history.seekg(-2, std::ios_base::cur);
-        }
-
-        std::getline(history, cmnd);
+        return cmnd;
     }
 
     void clear() {

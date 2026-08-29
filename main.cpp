@@ -1,3 +1,4 @@
+#include <filesystem>
 #include "cmds.h"
 
 int main() {
@@ -8,9 +9,9 @@ int main() {
     std::string command;
 
     while (true) {
-        std::cout << "user: " << std::filesystem::current_path() << "\n--->";
-        std::cin >> command;
-        std::cout << command;
+        std::cout << "┌ user: " << std::filesystem::current_path() << "\n└---> ";
+        std::getline(std::cin, command);
+        std::cout << command << "\n";
         if (command == "exit") return 0;
 
     }

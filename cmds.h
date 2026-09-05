@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include <fstream>
 #include <filesystem>
 #include <cstdlib>
@@ -6,6 +7,7 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <cstdlib>
+#include <vector>
 
 namespace command {
     void init() {
@@ -16,11 +18,13 @@ namespace command {
         std::fstream setup("setup.oganesson"); setup.close();
     }
 
-    void notBuiltIn(std::string cmd) {
-        int exists = std::system(("type" + cmd).c_str());
+    void notBuiltIn(std::vector<std::string> cmd) {
+        int exists = std::system(("type " + cmd[0] + "> /dev/null").c_str());
 
         if (!exists) {
-            int result = std::system(cmd.c_str());
+            std::string cmnd;
+            for (std::string part : cmd) cmnd += part + " ";
+            int result = std::system(cmnd.c_str());
             if (result != 0) {
                 std::cout << "ERR: Failed to run command.\n";
             }

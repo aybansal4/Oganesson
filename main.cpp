@@ -8,17 +8,24 @@ int main() {
     std::filesystem::path p = std::filesystem::current_path();
 
     
-    std::string command;
+    std::string cmd;
 
     while (true) {
         std::cout << "┌ user: " << std::filesystem::current_path() << "\n└---> ";
-        std::getline(std::cin, command);
+        std::getline(std::cin, cmd);
         
         std::vector<std::string> cmd_split;
-        boost::split(cmd_split, command, boost::is_any_of(" "));
-        for (std::string w : cmd_split) std::cout << w << "\n";
-        if (command == "exit") return 0;
+        boost::split(cmd_split, cmd, boost::is_any_of(" "));
 
+        if (cmd_split[0] == "exit") return 0;
+        else if (cmd_split[0] == "previous") {
+            std::system(command::previous().c_str());
+        }
+        else {
+            command::notBuiltIn(cmd_split);
+        }
+        
+        command::addToHist(cmd);
 
     }
 }

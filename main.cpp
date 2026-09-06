@@ -20,8 +20,9 @@ int main() {
         if (cmd_split[0] == "exit") return 0;
         else if (cmd_split[0] == "previous") {
             std::system(command::previous().c_str());
-        }
-        else {
+        } else if (cmd_split[0] == "clear") {
+            command::clear();
+        } else {
             command::notBuiltIn(cmd_split);
         }
         

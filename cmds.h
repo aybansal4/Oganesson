@@ -8,6 +8,7 @@
 #include <pwd.h>
 #include <cstdlib>
 #include <vector>
+#include <boost/process.hpp>
 
 namespace command {
     void init() {
@@ -19,13 +20,16 @@ namespace command {
     }
 
     void notBuiltIn(std::vector<std::string> cmd) {
-        int exists = std::system(("type " + cmd[0] + "> /dev/null").c_str());
+        int exists = std::system(("which " + cmd[0] + "> /dev/null").c_str());
 
         if (!exists) {
-            std::string cmnd;
-            for (std::string part : cmd) cmnd += part + " ";
-            int result = std::system(cmnd.c_str());
-            if (result != 0) {
+            
+            auto start = cmd.begin() + 1;
+
+            boost::process::child cmnd(boost::process::exe = cmd[0], boost::process::args = std::vector<std::string>(start, cmd.end()));
+            cmnd.wait();
+            
+            if (cmnd.exit_code() != 0) {
                 std::cout << "ERR: Failed to run command.\n";
             }
         } else {

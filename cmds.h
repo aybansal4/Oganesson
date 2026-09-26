@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "pstream.h"
 #include <fstream>
 #include <filesystem>
 #include <cstdlib>
@@ -8,7 +8,6 @@
 #include <pwd.h>
 #include <cstdlib>
 #include <vector>
-#include <boost/process.hpp>
 
 namespace command {
     void init() {
@@ -20,16 +19,16 @@ namespace command {
     }
 
     void notBuiltIn(std::vector<std::string> cmd) {
+
         int exists = std::system(("which " + cmd[0] + "> /dev/null").c_str());
 
         if (!exists) {
             
-            auto start = cmd.begin() + 1;
+            std::vector<std::string> args(cmd.begin() + 1, cmd.end());
 
-            boost::process::child cmnd(boost::process::exe = cmd[0], boost::process::args = std::vector<std::string>(start, cmd.end()));
-            cmnd.wait();
+            redi::ipstream run(cmd[0], args); run.close();
             
-            if (cmnd.exit_code() != 0) {
+            if (run.rdbuf()->status() != 0) {
                 std::cout << "ERR: Failed to run command.\n";
             }
         } else {

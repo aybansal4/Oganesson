@@ -1,5 +1,4 @@
 #include <iostream>
-#include "pstream.h"
 #include <fstream>
 #include <filesystem>
 #include <cstdlib>
@@ -18,22 +17,8 @@ namespace command {
         std::fstream setup("setup.oganesson"); setup.close();
     }
 
-    void notBuiltIn(std::vector<std::string> cmd) {
-
-        int exists = std::system(("which " + cmd[0] + "> /dev/null").c_str());
-
-        if (!exists) {
-            
-            std::vector<std::string> args(cmd.begin() + 1, cmd.end());
-
-            redi::ipstream run(cmd[0], args); run.close();
-            
-            if (run.rdbuf()->status() != 0) {
-                std::cout << "ERR: Failed to run command.\n";
-            }
-        } else {
-            std::cout << "ERR: Command not found.\n";
-        }
+    void notBuiltIn(std::string cmd) {
+        std::system(cmd.c_str());
     }
 
     void addToHist(std::string cmd) {
@@ -63,7 +48,7 @@ namespace command {
         std::cout << "\033[2J\033[H";
     }
 
-    void chdir(std::string path) {
-        chdir(path);
+    void chdir(char* path) {
+        ::chdir(path);
     }
 }

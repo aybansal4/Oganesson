@@ -13,7 +13,8 @@ int main() {
     while (true) {
         std::cout << "┌ user: " << std::filesystem::current_path() << "\n└---> ";
         std::getline(std::cin, cmd);
-        
+        if (cmd.empty()) continue;
+
         std::vector<std::string> cmd_split;
         boost::split(cmd_split, cmd, boost::is_any_of(" "));
 
@@ -22,8 +23,12 @@ int main() {
             std::system(command::previous().c_str());
         } else if (cmd_split[0] == "clear") {
             command::clear();
+        } else if (cmd_split[0] == "previous") {
+            command::previous();
+        } else if (cmd_split[0] == "chdir") {
+            command::chdir(cmd_split[1].c_str());
         } else {
-            command::notBuiltIn(cmd_split);
+            command::notBuiltIn(cmd);
         }
         
         command::addToHist(cmd);

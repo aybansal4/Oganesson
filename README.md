@@ -22,11 +22,11 @@ Soon there will be Linux binaries for aarch64 and x86_64
 These binaries will be up to date as I make progress  
 
 ## Some dependencies I added for now and may try to remove later  
-This project uses the library pstream, it is licensed under the Boost license and the GitHub repository for it can be found [here](https://github.com/jwakely/pstreams)  
+This project uses Boost. I presume you know where to find it (if not, you can find it [here](https://github.com/boostorg/boost))
 
 ## Copyright statements:  
 
-### pstreams
+### Boost
 
 ```
 Boost Software License - Version 1.0 - August 17th, 2003
@@ -51,5 +51,4 @@ FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
 SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
 FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
-```
+DEALINGS IN THE SOFTWARE.```

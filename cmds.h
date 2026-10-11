@@ -14,7 +14,8 @@ namespace command {
 
         std::fstream aliases("aliases.oganesson"); aliases.close();
         std::fstream history("history.oganesson"); history.close();
-        std::fstream setup("setup.oganesson"); setup.close();
+        std::fstream setup("setup.oganesson");
+        std::system("chmod +x ~/setup.oganesson; ~/setup.oganesson");
     }
 
     void notBuiltIn(std::string cmd) {
@@ -48,7 +49,7 @@ namespace command {
         std::cout << "\033[2J\033[H";
     }
 
-    void chdir(char* path) {
+    void chdir(const char* path) {
         ::chdir(path);
     }
 }

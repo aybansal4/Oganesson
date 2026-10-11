@@ -22,7 +22,7 @@ Soon there will be Linux binaries for aarch64 and x86_64
 These binaries will be up to date as I make progress  
 
 ## Some dependencies I added for now and may try to remove later  
-This project uses Boost and nlhomann/json. You can find Boost [here](https://github.com/boostorg/boost)) and nlhomann/json [here](https://github.com/nlhomann/json)
+This project uses Boost and nlohmann/json. You can find Boost [here](https://github.com/boostorg/boost)) and nlhomann/json [here](https://github.com/nlohmann/json)
 
 ## Copyright statements:  
 
@@ -54,7 +54,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ```   
 
-### nlhomann/json
+### nlohmann/json
 
 ```
 MIT License

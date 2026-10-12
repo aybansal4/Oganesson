@@ -5,15 +5,15 @@
 #include "cmds.h"
 
 int main() {
+
+    command::init();
     std::fstream setup("setup.oganesson");
     std::filesystem::path p = std::filesystem::current_path();
     nlohmann::json aliases;
-    std::fstream alises_("aliases.oganesson");
+    std::fstream aliases_("aliases.oganesson");
     aliases_ >> aliases;
     
     std::string cmd;
-
-    command::init();
 
     while (true) {
         std::cout << "┌ user: " << std::filesystem::current_path() << "\n└---> ";
@@ -39,7 +39,7 @@ int main() {
         } else if (cmd_split[0] == "load") {
             aliases_ >> aliases;
         } else {
-            command::notBuiltIn(cmd);
+            command::notBuiltIn(cmd_split);
         }
         
         command::addToHist(cmd);

@@ -7,6 +7,7 @@
 #include <pwd.h>
 #include <cstdlib>
 #include <vector>
+#include "subprocess.hpp"
 
 namespace command {
     void init() {
@@ -18,8 +19,10 @@ namespace command {
         std::system("chmod +x ~/setup.oganesson; ~/setup.oganesson");
     }
 
-    void notBuiltIn(std::string cmd) {
-        std::system(cmd.c_str());
+    void notBuiltIn(std::vector<std::string> cmd) {
+        auto runner = subprocess::Popen(cmd, subprocess::input{static_cast<FILE*>(nullptr)}, subprocess::output{static_cast<FILE*>(nullptr)}, subprocess::error{static_cast<FILE*>(nullptr)});
+
+        int exit = runner.wait();
     }
 
     void addToHist(std::string cmd) {

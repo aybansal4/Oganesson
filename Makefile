@@ -3,7 +3,7 @@
 
 # 1. Variables for Compiler and Flags
 CXX = g++
-CXXFLAGS = -Wall -g -I/opt/homebrew/include -std=c++26
+CXXFLAGS = -Wall -g -I/opt/homebrew/include -std=c++26 -arch arm64 -arch x86_64
 
 # 2. Target Executable Name and Object Files
 # Change 'my_program' to whatever you want your final executable to be named

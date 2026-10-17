@@ -7,11 +7,16 @@
 int main() {
 
     command::init();
+    nlohmann::json aliases;
     std::fstream setup("setup.oganesson");
     std::filesystem::path p = std::filesystem::current_path();
-    nlohmann::json aliases;
+
     std::fstream aliases_("aliases.oganesson");
-    aliases_ >> aliases;
+
+    if (aliases_.is_open()) {
+        aliases_ >> aliases;
+    }
+    
     
     std::string cmd;
 

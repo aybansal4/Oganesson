@@ -19,10 +19,14 @@ namespace command {
         std::system("chmod +x ~/setup.oganesson; ~/setup.oganesson");
     }
 
-    void notBuiltIn(std::vector<std::string> cmd) {
-        auto runner = subprocess::Popen(cmd, subprocess::input{static_cast<FILE*>(nullptr)}, subprocess::output{static_cast<FILE*>(nullptr)}, subprocess::error{static_cast<FILE*>(nullptr)});
+    void notBuiltIn(const std::vector<std::string> &cmd) {
+        try {
+            auto runner = subprocess::Popen(cmd);
 
-        int exit = runner.wait();
+            int exit = runner.wait();
+        } catch (const subprocess::CalledProcessError& e) {
+            std::cout << "ERR: Couldn't run command (see below)" << "\n" << e.what() << "\n";
+        }
     }
 
     void addToHist(std::string cmd) {
